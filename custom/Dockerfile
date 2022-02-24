@@ -20,3 +20,8 @@ RUN gpasswd -a $USERNAME video
 
 RUN groupadd -g $RENDERGID render
 RUN gpasswd -a $USERNAME render
+
+
+RUN mkdir -p /home/root/workspace
+RUN mkdir -p /home/$USERNAME/workspace
+RUN chown -R  $USERNAME:$GROUPNAME /home/$USERNAME/workspace

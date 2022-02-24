@@ -11,6 +11,9 @@ services:
         - GID=${GID}
         - RENDERGID=${RENDERGID}
     tty: true
+    volumes:
+      - ./share/home/root/workspace:/home/root/workspace
+      - ./share/home/${USERNAME}/workspace:/home/${USERNAME}/workspace
     devices:
       - '/dev/dri'
   # oneapi:

@@ -1,6 +1,8 @@
 USERNAME := godric
 
 build:
+	mkdir -p share/home/root/workspace
+	mkdir -p share/home/$(USERNAME)/workspace
 	docker-compose build
 
 run:
