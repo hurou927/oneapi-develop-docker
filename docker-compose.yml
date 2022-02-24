@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  oneapi:
+    build:
+      context: ./custom
+      dockerfile: Dockerfile
+      args:
+        - USERNAME=${USERNAME}
+        - GROUPNAME=${GROUPNAME}
+        - UID=${UID}
+        - GID=${GID}
+        - RENDERGID=${RENDERGID}
+    tty: true
+    devices:
+      - '/dev/dri'
+  # oneapi:
+  #   image: intel/oneapi-basekit
+  #   tty: true
+  #   devices:
+  #     - '/dev/dri'
