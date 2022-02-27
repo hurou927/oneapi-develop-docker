@@ -48,4 +48,11 @@ RUN rm -rf /tmp/neovim_tar
 
 # vim plug
 RUN curl -fLo /home/$USERNAME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# simple vimrc
+COPY ./static/config/init.vim /home/$USERNAME/.config/nvim/init.vim
+COPY ./static/script/install_vimplug.sh /home/$USERNAME/script/install_vimplug.sh
+
+RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/.config
 RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/.local
+RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/script
