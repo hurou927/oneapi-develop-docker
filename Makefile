@@ -5,6 +5,9 @@ build:
 	mkdir -p share/home/$(USERNAME)/workspace
 	docker-compose build
 
+clean_build:
+	docker-compose build --no-cache
+
 run:
 	docker-compose up -d
 
