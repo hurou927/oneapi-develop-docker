@@ -45,7 +45,6 @@ RUN  url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest  |
   && tar xvf /tmp/neovim_tar -C /
 RUN ln -sf /nvim-linux64/bin/nvim /usr/bin/nvim
 RUN rm -rf /tmp/neovim_tar
-RUN echo "alias n=nvim" >> /home/$USERNAME/.bashrc
 
 # vim plug
 RUN curl -fLo /home/$USERNAME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -57,3 +56,7 @@ COPY ./static/script/install_vimplug.sh /home/$USERNAME/script/install_vimplug.s
 RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/.config
 RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/.local
 RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/script
+
+RUN echo "alias n=nvim" >> /home/$USERNAME/.bashrc
+RUN echo 'export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/opt/intel/oneapi/compiler/2022.0.2/linux/include/' >> /home/$USERNAME/.bashrc
+RUN echo 'export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/opt/intel/oneapi/compiler/2022.0.2/linux/include/sycl/' >> /home/$USERNAME/.bashrc
