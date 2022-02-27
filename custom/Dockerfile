@@ -23,13 +23,6 @@ RUN apt-get -y install nodejs
 RUN apt-get -y clean \
   && rm -rf /var/lib/apt/lists/*
 
-# Install neovim
-RUN  url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest  | jq '[.assets[] | select(.name == "nvim-linux64.tar.gz")][0].browser_download_url' -r) \
-  && wget "$url" -O /tmp/neovim_tar \
-  && tar xvf /tmp/neovim_tar -C /
-RUN ln -sf /nvim-linux64/bin/nvim /usr/bin/nvim
-RUN rm -rf /tmp/neovim_tar
-
 RUN groupadd -g $GID $GROUPNAME
 RUN useradd -m -s /bin/zsh -u $UID -g $GID $USERNAME
 # sudo
@@ -45,6 +38,13 @@ RUN mkdir -p /home/root/workspace
 RUN mkdir -p /home/$USERNAME/workspace
 RUN chown -R  $USERNAME:$GROUPNAME /home/$USERNAME/workspace
 
+
+# Install neovim
+RUN  url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest  | jq '[.assets[] | select(.name == "nvim-linux64.tar.gz")][0].browser_download_url' -r) \
+  && wget "$url" -O /tmp/neovim_tar \
+  && tar xvf /tmp/neovim_tar -C /
+RUN ln -sf /nvim-linux64/bin/nvim /usr/bin/nvim
+RUN rm -rf /tmp/neovim_tar
 
 # vim plug
 RUN curl -fLo /home/$USERNAME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
