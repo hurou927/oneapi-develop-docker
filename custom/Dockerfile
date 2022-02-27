@@ -45,6 +45,7 @@ RUN  url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest  |
   && tar xvf /tmp/neovim_tar -C /
 RUN ln -sf /nvim-linux64/bin/nvim /usr/bin/nvim
 RUN rm -rf /tmp/neovim_tar
+RUN echo "alias n=nvim" >> /home/$USERNAME/.bashrc
 
 # vim plug
 RUN curl -fLo /home/$USERNAME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
