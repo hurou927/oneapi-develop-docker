@@ -9,11 +9,18 @@ ARG RENDERGID=${RENDERGID}
 
 RUN apt-get -y update
 RUN apt-get -y install \
+  git \
   jq \
   sudo \
   wget \
-  zsh \
-  && apt-get -y clean \
+  zsh
+
+# Install node
+RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt-get -y install nodejs
+
+# Clean up
+RUN apt-get -y clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Install neovim
@@ -37,3 +44,8 @@ RUN gpasswd -a $USERNAME render
 RUN mkdir -p /home/root/workspace
 RUN mkdir -p /home/$USERNAME/workspace
 RUN chown -R  $USERNAME:$GROUPNAME /home/$USERNAME/workspace
+
+
+# vim plug
+RUN curl -fLo /home/$USERNAME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN chown -R $USERNAME:$GROUPNAME /home/$USERNAME/.local
