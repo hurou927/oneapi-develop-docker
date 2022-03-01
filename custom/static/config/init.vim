@@ -2,8 +2,16 @@ call plug#begin()
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+Plug 'tpope/vim-commentary'
+Plug 'caenrique/nvim-toggle-terminal'
 call plug#end()
+
+set sh=bash
+
+map <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <C-z> :ToggleTerminal<Enter>
+tnoremap <silent> <C-z> <C-\><C-n>:ToggleTerminal<Enter>
+
 
 set nocompatible
 syntax on
@@ -12,6 +20,10 @@ set shiftwidth=2
 set softtabstop=2
 
 
+if has('persistent_undo')
+  set undodir=~/.vim/undo
+  set undofile
+endif
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
